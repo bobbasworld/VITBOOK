@@ -5,7 +5,29 @@ from django.urls.conf import include
 from social import views
 from django.views.generic.base import RedirectView
 
-urlpatterns = [
+from rest_framework import routers
+from .api import *
+
+# api urls/routes
+router = routers.DefaultRouter()
+router.register('api/myprofile', MyProfileViewSet, 'myprofile_api')
+router.register('api/mypost', MyPostViewSet, 'mypost_api')
+router.register('api/postlike', PostLikeViewSet, 'postlike_api')
+router.register('api/followuser', FollowUserViewSet, 'followuser_api')
+router.register('api/addconfession', AddConfessionViewSet, 'addconfession_api')
+router.register('api/vithub', VithubViewSet, 'vithub_api')
+router.register('api/contact', ContactViewSet, 'contact_api')
+router.register('api/chat', ChatViewSet, 'chat_api')
+router.register('api/developer', DeveloperViewSet, 'developer_api')
+router.register('api/poll', PollViewSet, 'poll_api')
+router.register('api/pollvoted', PollVotedViewSet, 'pollvoted_api')
+
+# urlpatterns = router.urls
+
+
+urlpatterns = [ 
+    
+    path('', include(router.urls)),
 
     path('home/', views.HomeView.as_view(), name='home'),
     # path('connections/', views.FriendsView.as_view(), name='connections'),
